@@ -1,0 +1,6 @@
+{
+  "name": "AAPromotion 3D Cinematic Background",
+  "description": "An ultra-luxury 3D cinematic video animation background featuring the AAPromotion crystal logo with dynamic camera motion, volumetric lighting, and interactive sparkle particles for desktop and mobile.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@layer base {
+  html, body, #root {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #030308;
+    color: #ffffff;
+    scroll-behavior: smooth;
+  }
+
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(5, 2, 12, 0.8);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(168, 85, 247, 0.4);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 85, 247, 0.7);
+  }
+}
+
+/* Phone-Only Text Animations (< 768px). PC/desktop (>= 768px) is completely untouched */
+@media (max-width: 767.98px) {
+  @keyframes phoneGlowPulse {
+    0%, 100% {
+      text-shadow: 0 0 10px rgba(192, 132, 252, 0.25), 0 2px 8px rgba(0, 0, 0, 0.85);
+    }
+    50% {
+      text-shadow: 0 0 20px rgba(217, 70, 239, 0.65), 0 0 32px rgba(168, 85, 247, 0.4), 0 2px 8px rgba(0, 0, 0, 0.9);
+    }
+  }
+
+  @keyframes phoneTextFloat {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  @keyframes phoneShimmerWave {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes phoneWordBreath {
+    0%, 100% {
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(1.18) drop-shadow(0 0 6px rgba(192, 132, 252, 0.45));
+    }
+  }
+
+  .phone-title-animated {
+    animation: phoneGlowPulse 3.8s ease-in-out infinite;
+  }
+
+  .phone-float-badge {
+    animation: phoneTextFloat 3.2s ease-in-out infinite;
+  }
+
+  .phone-shimmer-headline {
+    background-size: 200% auto;
+    animation: phoneShimmerWave 3.5s ease infinite;
+  }
+
+  .phone-word-glow {
+    animation: phoneWordBreath 3.2s ease-in-out infinite;
+  }
+}

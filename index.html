@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Ensure window.fetch is configurable so external scripts or parent preview frame wrappers
+      // cannot throw "Cannot set property fetch of #<Window> which has only a getter"
+      try {
+        const originalFetch = window.fetch ? window.fetch.bind(window) : undefined;
+        let currentFetch = originalFetch;
+        Object.defineProperty(window, 'fetch', {
+          get() {
+            return currentFetch;
+          },
+          set(newFetch) {
+            currentFetch = newFetch;
+          },
+          configurable: true,
+          enumerable: true,
+        });
+      } catch (e) {
+        // Silently continue if environment strictly prohibits descriptor modification
+      }
+    </script>
+    <title>AAPromotion 3D Cinematic Background</title>
+    <meta name="description" content="An ultra-luxury 3D cinematic video animation background featuring the AAPromotion crystal logo with dynamic camera motion, volumetric lighting, and interactive sparkle particles for desktop and mobile." />
+    <meta property="og:title" content="AAPromotion 3D Cinematic Background" />
+    <meta property="og:description" content="An ultra-luxury 3D cinematic video animation background featuring the AAPromotion crystal logo with dynamic camera motion, volumetric lighting, and interactive sparkle particles for desktop and mobile." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
