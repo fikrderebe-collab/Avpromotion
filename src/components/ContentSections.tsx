@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
+import logoImg from '../assets/images/aapromotion_logo_1790222181264.jpg';
+import founderImg from '../assets/images/akewak_founder_original_1790226300480.jpg';
 import {
   ArrowRight,
   Sparkles,
@@ -32,6 +34,7 @@ import {
 interface ContentSectionsProps {
   onContactClick?: () => void;
   onExploreServicesClick?: () => void;
+  onOpenSource?: () => void;
 }
 
 // Hook to detect phone screens (< 768px). PC is kept completely untouched.
@@ -109,6 +112,7 @@ export const AnimatedTitle: React.FC<{
 export const ContentSections: React.FC<ContentSectionsProps> = ({
   onContactClick,
   onExploreServicesClick,
+  onOpenSource,
 }) => {
   const isMobile = useIsMobile();
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
@@ -262,7 +266,7 @@ export const ContentSections: React.FC<ContentSectionsProps> = ({
     { name: 'Why Us', href: '#why-us' },
     { name: 'Portfolio', href: '#portfolio' },
     { name: 'Testimonials', href: '#testimonials' },
-    { name: 'Team', href: '#team' },
+    { name: 'Founder (Akewak)', href: '#team' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -341,7 +345,7 @@ export const ContentSections: React.FC<ContentSectionsProps> = ({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="flex flex-wrap items-center justify-center gap-4 mb-16"
+            className="flex flex-wrap items-center justify-center gap-3.5 mb-16"
           >
             <a
               href="#contact"
@@ -359,6 +363,14 @@ export const ContentSections: React.FC<ContentSectionsProps> = ({
             >
               <span>Explore Services</span>
             </a>
+
+            <button
+              onClick={onOpenSource}
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-purple-200 bg-purple-950/70 hover:bg-purple-900/90 border border-purple-500/40 hover:border-purple-300 shadow-[0_0_20px_rgba(168,85,247,0.3)] active:scale-95 transition-all"
+            >
+              <Code className="w-4 h-4 text-purple-300" />
+              <span>View Source</span>
+            </button>
           </motion.div>
 
           {/* 4 Value Pillars with Stagger InView Animation */}
@@ -532,9 +544,22 @@ export const ContentSections: React.FC<ContentSectionsProps> = ({
                   <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">{srv.desc}</p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-white/10 flex items-center text-xs font-medium text-purple-300 group-hover:text-purple-200">
-                  <span>Explore service</span>
-                  <ChevronRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
+                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-medium text-purple-300">
+                  <div className="flex items-center group-hover:text-purple-200">
+                    <span>Explore service</span>
+                    <ChevronRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenSource?.();
+                    }}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold text-neutral-400 hover:text-white bg-white/5 hover:bg-purple-900/50 border border-white/10 hover:border-purple-400/40 transition-colors"
+                  >
+                    <Code className="w-3 h-3 text-purple-400" />
+                    <span>Source</span>
+                  </button>
                 </div>
               </motion.div>
             );
@@ -677,15 +702,26 @@ export const ContentSections: React.FC<ContentSectionsProps> = ({
                   <p className="text-xs text-neutral-300 leading-relaxed mb-5">{vid.desc}</p>
                 </div>
 
-                <a
-                  href={vid.tiktokUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center justify-center gap-2 py-3 px-4 text-xs font-semibold text-white bg-white/10 hover:bg-white/20 rounded-xl transition-all shadow-[0_2px_10px_rgba(0,0,0,0.3)] active:scale-95"
-                >
-                  <span>Open Video in TikTok</span>
-                  <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
+                <div className="flex items-center gap-2">
+                  <a
+                    href={vid.tiktokUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 group inline-flex items-center justify-center gap-2 py-3 px-4 text-xs font-semibold text-white bg-white/10 hover:bg-white/20 rounded-xl transition-all shadow-[0_2px_10px_rgba(0,0,0,0.3)] active:scale-95"
+                  >
+                    <span>Open in TikTok</span>
+                    <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={onOpenSource}
+                    className="inline-flex items-center justify-center gap-1.5 py-3 px-3.5 text-xs font-semibold text-purple-200 bg-purple-950/60 hover:bg-purple-900/80 border border-purple-500/40 rounded-xl transition-all shadow-[0_0_12px_rgba(168,85,247,0.2)] active:scale-95"
+                    title="View Source Architecture"
+                  >
+                    <Code className="w-3.5 h-3.5 text-purple-300" />
+                    <span>Source</span>
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -789,7 +825,7 @@ export const ContentSections: React.FC<ContentSectionsProps> = ({
       </section>
 
       {/* ========================================================================= */}
-      {/* 7. MEET THE MINDS / LEADERSHIP TEAM */}
+      {/* 7. MEET OUR FOUNDER - AKEWAK                                              */}
       {/* ========================================================================= */}
       <section
         id="team"
@@ -807,14 +843,13 @@ export const ContentSections: React.FC<ContentSectionsProps> = ({
               isMobile ? 'phone-float-badge' : ''
             }`}
           >
-            Meet The Minds
+            Leadership
           </span>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4 drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
-            <AnimatedTitle text="Our Leadership Team" />
+            <AnimatedTitle text="Meet Our Founder" />
           </h2>
           <p className="text-sm sm:text-base text-neutral-300 leading-relaxed">
-            A dedicated group of visionaries and operators driving our mission forward. Experience,
-            innovation, and passion combined.
+            The visionary leader driving AA Promotion's creative campaigns, viral media presence, and strategic client growth.
           </p>
         </motion.div>
 
@@ -823,41 +858,51 @@ export const ContentSections: React.FC<ContentSectionsProps> = ({
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
-          className="max-w-md mx-auto"
+          className="max-w-xl mx-auto"
         >
-          <div className="p-8 rounded-3xl bg-black/25 text-center hover:bg-black/40 transition-all flex flex-col items-center border border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
-            {/* Avatar / Monogram */}
-            <div className="relative w-24 h-24 rounded-2xl mb-5 flex items-center justify-center bg-gradient-to-br from-purple-600 to-fuchsia-600 shadow-[0_0_25px_rgba(168,85,247,0.5)]">
-              <span className="text-3xl font-extrabold text-white">AK</span>
-              <span className="absolute -bottom-1 -right-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-neutral-900 text-purple-300 border border-purple-500/40">
-                Founder
+          <div className="relative p-8 sm:p-10 rounded-3xl bg-black/40 backdrop-blur-md text-center hover:bg-black/55 transition-all flex flex-col items-center border border-purple-500/30 shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_30px_rgba(168,85,247,0.2)] overflow-hidden group">
+            {/* Ambient Purple Backlight Behind Portrait */}
+            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-72 bg-gradient-to-b from-purple-600/30 to-fuchsia-600/0 rounded-full filter blur-3xl pointer-events-none" />
+
+            {/* Founder Portrait Frame */}
+            <div className="relative mb-6">
+              <div className="w-48 h-48 sm:w-60 sm:h-60 rounded-3xl overflow-hidden p-1 bg-gradient-to-tr from-purple-500 via-fuchsia-500 to-indigo-500 shadow-[0_0_35px_rgba(168,85,247,0.5)]">
+                <img
+                  src={founderImg}
+                  alt="Akewak - Founder & CEO of AA Promotion"
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover object-top rounded-[22px] group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-neutral-950 text-purple-200 border border-purple-500/50 shadow-[0_0_15px_rgba(168,85,247,0.5)] whitespace-nowrap">
+                Founder & CEO
               </span>
             </div>
 
             <h3
-              className={`text-2xl font-bold text-white mb-1 ${
+              className={`text-2xl sm:text-3xl font-extrabold text-white mb-1.5 tracking-tight ${
                 isMobile ? 'phone-title-animated' : ''
               }`}
             >
-              AKwak
+              Akewak
             </h3>
             <p
-              className={`text-sm font-semibold text-purple-300 mb-4 ${
+              className={`text-sm sm:text-base font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-fuchsia-300 to-pink-300 mb-4 ${
                 isMobile ? 'phone-word-glow' : ''
               }`}
             >
-              CEO & Founder
+              Founder & CEO, AA Promotion
             </p>
-            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-sm mb-6">
-              2+ Years in Digital Marketing | Building the ultimate results-driven agency for client success
+            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-md mb-8">
+              "At AA Promotion, our mission is to turn brands into digital powerhouses. We combine viral content creation with data-backed marketing to deliver measurable growth and authentic brand resonance."
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center gap-3">
+            <div className="flex flex-wrap items-center justify-center gap-3 w-full">
               <a
                 href="https://t.me/AA_PROMOTION"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold text-white bg-white/10 hover:bg-white/15 transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold text-white bg-purple-900/50 hover:bg-purple-800/70 border border-purple-500/40 shadow-[0_0_15px_rgba(168,85,247,0.25)] transition-all active:scale-95"
               >
                 <SendHorizontal className="w-3.5 h-3.5 text-purple-300" />
                 <span>Telegram @AA_PROMOTION</span>
@@ -867,10 +912,18 @@ export const ContentSections: React.FC<ContentSectionsProps> = ({
                 href={instagramLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold text-white bg-white/10 hover:bg-white/15 transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/10 transition-all active:scale-95"
               >
                 <Instagram className="w-3.5 h-3.5 text-pink-400" />
-                <span>Instagram</span>
+                <span>@aapromotiondire</span>
+              </a>
+
+              <a
+                href="tel:0983860338"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/10 transition-all active:scale-95"
+              >
+                <Phone className="w-3.5 h-3.5 text-purple-400" />
+                <span>0983860338</span>
               </a>
             </div>
           </div>
@@ -1108,7 +1161,13 @@ export const ContentSections: React.FC<ContentSectionsProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-14">
           {/* Brand Col */}
           <div className="md:col-span-5">
-            <div className="flex items-center gap-3 mb-3">
+            <div className="flex items-center gap-3.5 mb-3">
+              <img
+                src={logoImg}
+                alt="AA Promotion Logo"
+                className="w-10 h-10 object-contain rounded-xl drop-shadow-[0_0_16px_rgba(168,85,247,0.7)]"
+                referrerPolicy="no-referrer"
+              />
               <span className="text-2xl font-extrabold tracking-wider text-white uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                 AA PROMOTION
               </span>
@@ -1118,8 +1177,17 @@ export const ContentSections: React.FC<ContentSectionsProps> = ({
               presences through strategy, viral content, performance advertising, and measurable results.
             </p>
 
-            {/* Social Channels Pills */}
+            {/* Social Channels Pills & Source Button */}
             <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={onOpenSource}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-900/40 hover:bg-purple-800/60 border border-purple-500/40 text-xs font-bold text-purple-200 transition-all shadow-[0_0_14px_rgba(168,85,247,0.3)]"
+              >
+                <Code className="w-4 h-4 text-purple-300" />
+                <span>Source Code & Specs</span>
+              </button>
+
               <a
                 href={instagramLink}
                 target="_blank"
@@ -1223,7 +1291,15 @@ export const ContentSections: React.FC<ContentSectionsProps> = ({
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-400">
           <p>© 2026 AA Promotion. All rights reserved.</p>
 
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+            <button
+              type="button"
+              onClick={onOpenSource}
+              className="inline-flex items-center gap-1.5 text-purple-300 hover:text-white font-medium transition-colors"
+            >
+              <Code className="w-3.5 h-3.5" />
+              <span>Source Code (Vercel Ready)</span>
+            </button>
             <a
               href={instagramLink}
               target="_blank"

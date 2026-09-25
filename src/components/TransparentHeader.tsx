@@ -1,94 +1,31 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Code2 } from 'lucide-react';
+import logoImg from '../assets/images/aapromotion_logo_1790222181264.jpg';
 
 interface TransparentHeaderProps {
   activeTab: string;
   onSelectTab: (tab: string) => void;
   onOpenQuickView?: () => void;
+  onOpenSource?: () => void;
 }
 
-// Authentic Vector representation of the AAPromotion Amethyst Upward Arrow Monogram Logo
-export const AAPromotionLogo: React.FC<{ className?: string }> = ({ className = 'w-7 h-7' }) => {
+// Authentic representation of the exact AAPromotion 3D Logo
+export const AAPromotionLogo: React.FC<{ className?: string }> = ({ className = 'w-9 h-9 sm:w-11 sm:h-11' }) => {
   return (
-    <svg
-      viewBox="0 0 100 100"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-label="AAPromotion Logo"
-    >
-      <defs>
-        <linearGradient id="amethystGlow" x1="10%" y1="90%" x2="90%" y2="10%">
-          <stop offset="0%" stopColor="#a855f7" />
-          <stop offset="50%" stopColor="#c084fc" />
-          <stop offset="100%" stopColor="#f0abfc" />
-        </linearGradient>
-        <linearGradient id="facetHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8" />
-          <stop offset="40%" stopColor="#d8b4fe" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#7e22ce" stopOpacity="0.9" />
-        </linearGradient>
-        <filter id="purpleGlint" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#d946ef" floodOpacity="0.6" />
-        </filter>
-      </defs>
-
-      {/* Main Left Diagonal Crystal Pillar */}
-      <path
-        d="M22 76L46 28C48 24 52 24 54 28L60 40L42 76H22Z"
-        fill="url(#amethystGlow)"
-        filter="url(#purpleGlint)"
-      />
-
-      {/* Internal Reflection Facet */}
-      <path
-        d="M26 73L48 30C49 28 51 28 52 30L55 36L38 73H26Z"
-        fill="url(#facetHighlight)"
-        opacity="0.75"
-      />
-
-      {/* Central Inner Amethyst Diamond */}
-      <polygon
-        points="52,38 60,49 52,60 44,49"
-        fill="#f5d0fe"
-        opacity="0.9"
-        filter="url(#purpleGlint)"
-      />
-
-      {/* Right Ascending Arrow Shaft & Arrowhead */}
-      <path
-        d="M56 46L76 26"
-        stroke="url(#amethystGlow)"
-        strokeWidth="7"
-        strokeLinecap="round"
-      />
-      <path
-        d="M62 26H76V40"
-        stroke="url(#amethystGlow)"
-        strokeWidth="7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      {/* Amethyst Chevron Base Wings */}
-      <path
-        d="M34 76L52 50L70 76"
-        stroke="url(#amethystGlow)"
-        strokeWidth="7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      {/* Sparkle star at the top of the arrow */}
-      <circle cx="72" cy="32" r="3" fill="#ffffff" filter="url(#purpleGlint)" />
-    </svg>
+    <img
+      src={logoImg}
+      alt="AA Promotion Logo"
+      className={`${className} object-contain rounded-xl drop-shadow-[0_0_16px_rgba(168,85,247,0.7)]`}
+      referrerPolicy="no-referrer"
+    />
   );
 };
 
 export const TransparentHeader: React.FC<TransparentHeaderProps> = ({
   activeTab,
   onSelectTab,
+  onOpenSource,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -97,6 +34,7 @@ export const TransparentHeader: React.FC<TransparentHeaderProps> = ({
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'services', label: 'Services' },
+    { id: 'team', label: 'Founder' },
     { id: 'portfolio', label: 'Portfolio' },
     { id: 'contact', label: 'Contact' },
   ];
@@ -171,11 +109,22 @@ export const TransparentHeader: React.FC<TransparentHeaderProps> = ({
           </nav>
 
           {/* Right Action Icons & CTA Button */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
+            {/* Source Code Button on desktop */}
+            <button
+              id="header-source-code-btn"
+              onClick={onOpenSource}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-purple-200 rounded-full bg-purple-950/60 hover:bg-purple-900/80 border border-purple-500/40 hover:border-purple-300 active:scale-95 transition-all shadow-[0_0_14px_rgba(168,85,247,0.3)]"
+              title="View Project Source Code & Architecture"
+            >
+              <Code2 className="w-3.5 h-3.5 text-purple-300" />
+              <span>Source</span>
+            </button>
+
             <button
               id="header-cta-get-started"
               onClick={() => handleNavClick('contact')}
-              className="hidden sm:inline-flex items-center justify-center px-5 py-2 text-sm font-medium text-white/90 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 transition-all shadow-[0_2px_12px_rgba(0,0,0,0.4)]"
+              className="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-xs font-medium text-white/90 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 transition-all shadow-[0_2px_12px_rgba(0,0,0,0.4)]"
             >
               <span className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">Get started</span>
             </button>
@@ -228,9 +177,21 @@ export const TransparentHeader: React.FC<TransparentHeaderProps> = ({
 
               <div className="mt-4 pt-3 border-t border-white/10 flex flex-col gap-2.5">
                 <button
+                  id="mobile-source-btn"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenSource?.();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 py-2 px-4 text-xs font-semibold text-purple-200 rounded-full bg-purple-900/40 border border-purple-500/40 hover:bg-purple-900/60 transition-all shadow-[0_0_12px_rgba(168,85,247,0.3)]"
+                >
+                  <Code2 className="w-3.5 h-3.5 text-purple-300" />
+                  <span>Source Code & Specs</span>
+                </button>
+
+                <button
                   id="mobile-explore-btn"
                   onClick={() => handleNavClick('contact')}
-                  className="w-full flex items-center justify-center py-2.5 px-4 text-sm font-medium text-white rounded-full bg-white/15 hover:bg-white/20 shadow-[0_2px_12px_rgba(0,0,0,0.4)]"
+                  className="w-full flex items-center justify-center py-2 px-4 text-xs font-medium text-white rounded-full bg-white/15 hover:bg-white/20 shadow-[0_2px_12px_rgba(0,0,0,0.4)]"
                 >
                   <span>Get started</span>
                 </button>

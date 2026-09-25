@@ -1,7 +1,15 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { motion, MotionValue } from 'motion/react';
 
-export const VolumetricRays: React.FC = () => {
+interface VolumetricRaysProps {
+  scrollRotate?: MotionValue<number>;
+  scrollScale?: MotionValue<number>;
+}
+
+export const VolumetricRays: React.FC<VolumetricRaysProps> = ({
+  scrollRotate,
+  scrollScale,
+}) => {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden z-[4]">
       {/* Central Volumetric Light Cone projecting from behind the crystal arrow */}
@@ -10,27 +18,21 @@ export const VolumetricRays: React.FC = () => {
         style={{
           left: '50%',
           top: '44%',
-          background: 'radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(139, 92, 246, 0.25) 45%, rgba(109, 40, 217, 0.1) 70%, rgba(3, 3, 10, 0) 85%)',
+          background:
+            'radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(139, 92, 246, 0.25) 45%, rgba(109, 40, 217, 0.1) 70%, rgba(3, 3, 10, 0) 85%)',
           mixBlendMode: 'screen',
-        }}
-        animate={{
-          scale: [1, 1.18, 0.96, 1.12, 1],
-          opacity: [0.65, 0.9, 0.6, 0.85, 0.65],
-        }}
-        transition={{
-          duration: 9,
-          repeat: Infinity,
-          ease: 'easeInOut',
+          scale: scrollScale,
         }}
       />
 
-      {/* Rotating God Rays Pinwheel */}
+      {/* Rotating God Rays Pinwheel - Driven by Mouse Scroll */}
       <motion.div
         className="absolute w-[160vw] h-[160vw] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-25"
         style={{
           left: '50%',
           top: '42%',
           mixBlendMode: 'color-dodge',
+          rotate: scrollRotate,
           background: `
             conic-gradient(
               from 0deg,
@@ -55,23 +57,16 @@ export const VolumetricRays: React.FC = () => {
           maskImage: 'radial-gradient(circle at 50% 50%, black 15%, transparent 75%)',
           WebkitMaskImage: 'radial-gradient(circle at 50% 50%, black 15%, transparent 75%)',
         }}
-        animate={{
-          rotate: [0, 360],
-        }}
-        transition={{
-          duration: 65,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
       />
 
-      {/* Counter-rotating Secondary Soft Beam */}
+      {/* Counter-rotating Secondary Soft Beam - Driven by Mouse Scroll */}
       <motion.div
         className="absolute w-[140vw] h-[140vw] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-20"
         style={{
           left: '50%',
           top: '42%',
           mixBlendMode: 'screen',
+          rotate: scrollRotate ? scrollRotate : undefined,
           background: `
             conic-gradient(
               from 45deg,
@@ -89,14 +84,6 @@ export const VolumetricRays: React.FC = () => {
           `,
           maskImage: 'radial-gradient(circle at 50% 50%, black 10%, transparent 68%)',
           WebkitMaskImage: 'radial-gradient(circle at 50% 50%, black 10%, transparent 68%)',
-        }}
-        animate={{
-          rotate: [360, 0],
-        }}
-        transition={{
-          duration: 85,
-          repeat: Infinity,
-          ease: 'linear',
         }}
       />
     </div>
